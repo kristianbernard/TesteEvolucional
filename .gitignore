@@ -1,0 +1,29 @@
+# Build output
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# NuGet
+packages/
+*.nupkg
+project.lock.json
+project.assets.json
+
+# VS
+.vs/
+*.vssscc
+*.vspscc
+
+# Test / coverage
+[Tt]est[Rr]esult*/
+*.trx
+*.coverage
+
+# Rider / misc
+.idea/
+*.DotSettings.user
