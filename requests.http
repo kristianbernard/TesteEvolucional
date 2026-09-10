@@ -1,0 +1,99 @@
+### Teste Escola - chamadas de exemplo
+### Visual Studio / Rider / VS Code "REST Client". Ajuste a porta se necessário.
+
+@base = http://localhost:8099
+
+### ------------------------------------------------------------------ ALUNOS
+
+### Listar (paginado, com total no corpo e no header X-Total-Count)
+GET {{base}}/api/alunos?pagina=1&tamanhoPagina=5
+
+### Filtrar por nome
+GET {{base}}/api/alunos?nome=ana
+
+### Incluir inativos
+GET {{base}}/api/alunos?incluirInativos=true
+
+### Obter por id
+GET {{base}}/api/alunos/1
+
+### Obter inexistente -> 404
+GET {{base}}/api/alunos/9999
+
+### Criar -> 201 + Location
+POST {{base}}/api/alunos
+Content-Type: application/json
+
+{
+  "nome": "Novo Aluno",
+  "email": "novo.aluno@email.com",
+  "dataNascimento": "2005-04-10"
+}
+
+### Criar inválido -> 400
+POST {{base}}/api/alunos
+Content-Type: application/json
+
+{ "nome": "", "email": "isto-nao-e-email", "dataNascimento": "2999-01-01" }
+
+### Atualizar -> 200
+PUT {{base}}/api/alunos/1
+Content-Type: application/json
+
+{
+  "nome": "Ana Souza",
+  "email": "ana.souza@email.com",
+  "dataNascimento": "2006-03-14",
+  "ativo": true
+}
+
+### Excluir (lógico) -> 204
+DELETE {{base}}/api/alunos/1
+
+### ------------------------------------------------------------------ TURMAS
+
+### Listar turmas com vagas restantes (resposta cacheada)
+GET {{base}}/api/turmas
+
+### ------------------------------------------------------------------ MATRÍCULA
+
+### Matricular -> 201
+POST {{base}}/api/matriculas
+Content-Type: application/json
+
+{ "alunoId": 5, "turmaId": 1 }
+
+### Mesma matrícula de novo -> 409 (duplicada)
+POST {{base}}/api/matriculas
+Content-Type: application/json
+
+{ "alunoId": 5, "turmaId": 1 }
+
+### Turma sem vaga (id 4, "Turma Lotada") -> 409
+POST {{base}}/api/matriculas
+Content-Type: application/json
+
+{ "alunoId": 1, "turmaId": 4 }
+
+### Aluno inativo (id 4, Diego) -> 409
+POST {{base}}/api/matriculas
+Content-Type: application/json
+
+{ "alunoId": 4, "turmaId": 2 }
+
+### Aluno inexistente -> 404
+POST {{base}}/api/matriculas
+Content-Type: application/json
+
+{ "alunoId": 9999, "turmaId": 2 }
+
+### Corpo inválido -> 400
+POST {{base}}/api/matriculas
+Content-Type: application/json
+
+{ }
+
+### ------------------------------------------------------------------ RELATÓRIO
+
+### Alunos por turma (JOIN + GROUP BY no banco)
+GET {{base}}/api/relatorios/alunos-por-turma
