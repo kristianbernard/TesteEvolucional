@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Alunos &middot; Teste Escola</title>
+    <link rel="stylesheet" href="/app/styles.css" />
+</head>
+<body>
+    <main class="container">
+        <h1>Alunos</h1>
+        <p class="sub">Consome <code>GET /api/alunos</code> (listagem paginada com filtro por nome).</p>
+
+        <form id="filtro" class="filtro">
+            <input type="search" id="nome" placeholder="Filtrar por nome..." autocomplete="off" />
+            <label class="chk"><input type="checkbox" id="incluirInativos" /> incluir inativos</label>
+            <select id="tamanhoPagina">
+                <option value="5">5 / página</option>
+                <option value="10" selected>10 / página</option>
+                <option value="20">20 / página</option>
+            </select>
+            <button type="submit">Buscar</button>
+        </form>
+
+        <div id="status" class="status" role="status"></div>
+
+        <table id="tabela">
+            <thead>
+                <tr>
+                    <th>Id</th><th>Nome</th><th>Email</th>
+                    <th>Nascimento</th><th>Ativo</th><th>Cadastro</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <div class="paginacao">
+            <button id="anterior" type="button">&larr; Anterior</button>
+            <span id="infoPagina"></span>
+            <button id="proxima" type="button">Próxima &rarr;</button>
+        </div>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+            crossorigin="anonymous"></script>
+    <script src="/app/app.js"></script>
+</body>
+</html>
